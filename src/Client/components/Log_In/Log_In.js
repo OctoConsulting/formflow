@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 
 //Custom components
-import Banner from '../../Banner';
+import Banner from '../../Nav_Bar';
 import Sign_In_Box_Content from './components/Sign_In_Box_Content';
 
 
