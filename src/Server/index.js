@@ -4,13 +4,13 @@ const express = require('express');
 const http = require('http');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
-const mongodb = require('mongodb');
-const ObjectId = require('mongodb').ObjectId;
-const app = express(); //instance of app created
+const mongoose = require('mongoose');const app = express(); //instance of app created
 const router = require('./router');//importing router into this
 const cors = require('cors');
 //SERVER SETUP
-mongo.connect('mongodb://localhost:/dataBase');
+mongoose.connect('mongodb://localhost:/dataBase', {
+  useMongoClient: true
+});
 //APP SETUP
 //Any incoming requests will be passed through
 //morgan and bodyParser (they are middlewares)
@@ -23,7 +23,7 @@ router(app); //calling router to start routing data
 
 
 //SERVER SETUP
-const port = process.env.PORT || 3090; //use 3090 or use environment PORT
+const port = process.env.PORT || 4000; //use 3090 or use environment PORT
 const server = http.createServer(app); //create an HTTP server and send it to app
 
 server.listen(port);

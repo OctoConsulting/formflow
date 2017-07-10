@@ -12,7 +12,7 @@ import reducers from './reducers';
 
 const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
 //store contains the current redux state -- everything flows through reducers
-const store = createStoreWithMiddleware(reducers)
+const store = createStoreWithMiddleware(reducers);
 //New Component
 
 //Showing HTML in the DOM
