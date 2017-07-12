@@ -8,7 +8,9 @@ const formSchema = new Schema({
   //lowercase makes sure it's turned lowercase all the time
   name: String,
   description: String, //making sure the email field is always unique with MongoDB
-  tags: String
+  tags: String,
+  methods: Object,
+  models: Object
 
 
 });

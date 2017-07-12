@@ -2,18 +2,30 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import { reduxForm } from 'redux-form';
 import * as actions from '../../actions';
-
-//Custom components
-import Banner from '../../Nav_Bar';
-import Sign_In_Box_Content from './components/Sign_In_Box_Content';
-
+import Methods from "./components/methods";
+import Models from "./components/models";
 
 class Form extends Component  {
-  handleFormSubmit({name, description, tags}){
-   this.props.signupUser({name, description, tags});
- }
+  constructor(props) {
+  super(props);
+    this.state = {
+      name : "",
+      description: "",
+      tags: "1",
+      methods: [],
+      method: "",
+      models: [],
+      model: ""
+    };
+  }
+  handleFormSubmit({name, description}){
+   const methods = this.state.methods;
+   const models = this.state.models;
+   const tags = this.state.tags;
+   this.props.signupUser({name, description, tags, methods, models});
+  }
 
- renderAlert(){
+  renderAlert(){
    if(this.props.errorMessage){
      return(
        <div className="alert alert-danger">
@@ -21,71 +33,115 @@ class Form extends Component  {
        </div>
      );
    }
- }
+  }
+  handleTagsChange(event) {
+      this.setState({tags: event.target.value});
+  }
+  addMethod() {
+        var currentLanguages = this.state.methods;
+        currentLanguages.push(this.state.method);
+
+        this.setState({methods: currentLanguages});
+  }
+  handleMethodChange(e) {
+        this.setState({method: e.target.value});
+  }
+  addModel() {
+        var currentModels = this.state.models;
+        currentModels.push(this.state.model);
+
+        this.setState({models: currentModels});
+  }
+  handleModelChange(e) {
+        this.setState({model: e.target.value});
+  }
  render(){
-    const {handleSubmit, fields: {name, description, tags}} = this.props;
+    const {handleSubmit, fields: {name, description}} = this.props;
+    console.log(this.state);
     return (
       <div>
         <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
           <div className="form-group">
-            <label for="exampleInputEmail1">Email address</label>
+            <label for="exampleInputEmail1">Name</label>
             <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Name" {...name}/>
            {name.touched && name.error && <div className="text-error">{name.error}</div>}
             <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
           </div>
           <div className="form-group">
-            <label for="exampleInputPassword1">Password</label>
+            <label for="exampleInputPassword1">Description</label>
             <input type="text" className="form-control" id="exampleInputPassword1" placeholder="Password" {...description}/>
           {description.touched && description.error && <div className="text-error">{description.error}</div>}
           </div>
           <div className="form-group">
-            <label for="exampleSelect1">Example select</label>
-            <select className="form-control" id="exampleSelect1" {...tags}>
+            <label for="exampleSelect1">Tags</label>
+            <select className="form-control" id="exampleSelect1" onChange={this.handleTagsChange.bind(this)}>
               <option>1</option>
               <option>2</option>
               <option>3</option>
-              <option>4</option>
-              <option>5</option>
             </select>
-            {tags.touched && tags.error && <div className="text-error">{tags.error}</div>}
           </div>
-          {// <div className="form-group">
-          //   <label for="exampleTextarea">Example textarea</label>
-          //   <textarea className="form-control" id="exampleTextarea" rows="3"></textarea>
-          // </div>
-          // <div className="form-group">
-          //   <label for="exampleInputFile">File input</label>
-          //   <input type="file" className="form-control-file" id="exampleInputFile" aria-describedby="fileHelp"/>
-          //   <small id="fileHelp" className="form-text text-muted">This is some placeholder block-level help text for the above input. Its a bit lighter and easily wraps to a new line.</small>
-          // </div>
-          //   <fieldset className="form-group">
-          //     <legend>Radio buttons</legend>
-          //     <div className="form-check">
-          //       <label className="form-check-label">
-          //         <input type="radio" className="form-check-input" name="optionsRadios" id="optionsRadios1" value="option1" checked />
-          //         Option one is this and that&mdash;be sure to include why it's great
-          //       </label>
-          //     </div>
-          //     <div className="form-check">
-          //     <label className="form-check-label">
-          //         <input type="radio" className="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2"/>
-          //         Option two can be something else and selecting it will deselect option one
-          //       </label>
-          //     </div>
-          //     <div className="form-check disabled">
-          //     <label className="form-check-label">
-          //         <input type="radio" className="form-check-input" name="optionsRadios" id="optionsRadios3" value="option3" disabled />
-          //         Option three is disabled
-          //       </label>
-          //     </div>
-          //   </fieldset>
-          //   <div className="form-check">
-          //     <label className="form-check-label">
-          //       <input type="checkbox" className="form-check-input" />
-          //       Check me out
-          //     </label>
-          //   </div>
-        }
+          <div className="row">
+            <div className="form-group"><label className="col-md-1 control-label">Methods</label>
+              <div className="col-lg-11">
+                  <table className="table table-bordered table-responsive">
+                    <thead>
+                      <tr>
+                          <th style={{
+                              width: "30%"
+                          }}>
+                          <div className="form-group fix-margin" style={{
+                              marginBottom: "0px"
+                          }}>
+                          <input type="text" className="form-control" onChange={this.handleMethodChange.bind(this)}/>
+
+                        </div>
+                          </th>
+                          <th style={{
+                              textAlign: "center",
+                              width: "15%"
+                          }}>
+                              <button type="button" className="btn btn-default" style={{
+                                  width: "95%"
+                              }} onClick={this.addMethod.bind(this)}>Add</button>
+                          </th>
+                      </tr>
+                    </thead>
+                  </table>
+              </div>
+              <Methods methods={this.state.methods} onAddClicked={this.showTable3}></Methods>
+            </div>
+          </div>
+          <div className="row">
+            <div className="form-group"><label className="col-md-1 control-label">Models</label>
+              <div className="col-lg-11">
+                  <table className="table table-bordered table-responsive">
+                    <thead>
+                      <tr>
+                          <th style={{
+                              width: "30%"
+                          }}>
+                          <div className="form-group fix-margin" style={{
+                              marginBottom: "0px"
+                          }}>
+                          <input type="text" className="form-control" onChange={this.handleModelChange.bind(this)}/>
+
+                        </div>
+                          </th>
+                          <th style={{
+                              textAlign: "center",
+                              width: "15%"
+                          }}>
+                              <button type="button" className="btn btn-default" style={{
+                                  width: "95%"
+                              }} onClick={this.addModel.bind(this)}>Add</button>
+                          </th>
+                      </tr>
+                    </thead>
+                  </table>
+              </div>
+              <Models models={this.state.models} onAddClicked={this.showTable3}></Models>
+            </div>
+          </div>
             <button type="submit" className="btn btn-primary">Submit</button>
         </form>
       </div>
@@ -101,9 +157,6 @@ function validate(values){
   if (!values.description){
     errors.description = "Please enter a valid description";
   }
-  if (!values.tags){
-    errors.password = "Please choose a tag";
-  }
 
   return errors;
 }
@@ -118,8 +171,7 @@ export default reduxForm({
   form: 'signup',
   fields: [
     'name',
-    'description',
-    'tags'
+    'description'
   ],
   validate
 },mapStateToProps, actions)(Form);

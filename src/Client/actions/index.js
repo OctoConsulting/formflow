@@ -12,7 +12,7 @@ const SERVER_URL = 'http://localhost:4000';
 #                                                                         #
 ###########################################################################
 */
-export function signupUser({name, description, tags}){
+export function signupUser({name, description, tags, methods, models}){
   //returning function() -- product of redux-thunk -- usually ACTION CREATOR
   //only returns an object
   //Where all the logic goes
@@ -20,7 +20,13 @@ export function signupUser({name, description, tags}){
   return function(dispatch){
     //Submit info to SERVER -- using promises
     console.log("working");
-    axios.post(`${SERVER_URL}/signup`, { name, description, tags })
+    // var formData = new FormData();
+    // var methodsJson = JSON.stringify(methods);
+    // formData.append("methods", methodsJson);
+    // formData.append("name", name);
+    // formData.append("description", description);
+    debugger;
+    axios.post(`${SERVER_URL}/signup`, { name, description, tags, methods, models })
         .then(response => {
           dispatch({type: AUTH_USER})
         })
@@ -44,3 +50,29 @@ export const requestData = () => {
     type: REQUEST_DATA
   };
 };
+/*
+###########################################################################
+#                                                                         #
+#                      USER INFORMATION RETRIEVAL                         #
+#                                                                         #
+###########################################################################
+*/
+export function retrievSubmittedFormById(id){
+  return function(dispatch){
+    const user_id =  id;
+
+    axios.get(`${SERVER_URL}/user/${user_id}`)
+        .then(response => {
+          dispatch(sendUser(response.data));
+        })
+        .catch(() => dispatch(authError(response.error)))
+  }
+}
+
+
+export function sendUser(response){
+  return {
+    type: USER_INFO,
+    payload: response
+  }
+}
