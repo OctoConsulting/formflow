@@ -12,7 +12,7 @@ const SERVER_URL = 'http://localhost:4000';
 #                                                                         #
 ###########################################################################
 */
-export function signupUser({name, description, tags, methods, models}){
+export function signupUser({name, email, description, tags, methods, models, approversName, approversEmail}){
   //returning function() -- product of redux-thunk -- usually ACTION CREATOR
   //only returns an object
   //Where all the logic goes
@@ -26,7 +26,7 @@ export function signupUser({name, description, tags, methods, models}){
     // formData.append("name", name);
     // formData.append("description", description);
     debugger;
-    axios.post(`${SERVER_URL}/signup`, { name, description, tags, methods, models })
+    axios.post(`${SERVER_URL}/signup`, { name, email, description, tags, methods, models, approversName, approversEmail})
         .then(response => {
           dispatch({type: AUTH_USER})
         })

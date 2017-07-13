@@ -15,46 +15,59 @@ class Admin extends Component  {
   render(){
     console.log(this.props);
     //  console.log(this.props.getUserInfo);
-      const getUserInfo = this.props.getUserInfo;
-    //  console.log(getUserInfo.methods);
-    //  if (getUserInfo.methods > 1) {
-    //    var methods = getUserInfo.methods.map((method, index) => (
-    //      <div>{method}, </div>
-    //    ))
-    //    console.log({methods});
-    //  } else {
-    //    return (
-    //      <div>{getUserInfo.methods}</div>
-    //    )
-    //  }
+    const getUserInfo = this.props.getUserInfo;
+    console.log(getUserInfo.methods);
+    var methodsArr = getUserInfo.methods || [];
+    var methods = methodsArr.map((method, index) => (
+     <span className="method">{method}</span>
+    ))
+    var modelsArr = getUserInfo.models || [];
+    var models = modelsArr.map((model, index) => (
+     <span className="model">{model}</span>
+    ))
 
-     return (
-       <div>
-           <div className="form-group">
-             <label htmlFor="exampleInputEmail1">Name: {getUserInfo.name}</label>
-
-           </div>
-           <div className="form-group">
-             <label htmlFor="exampleInputPassword1">Description: {getUserInfo.description}</label>
-           </div>
-           <div className="form-group">
-             <label htmlFor="exampleSelect1">Tags: {getUserInfo.tags}</label>
-           </div>
-           <div className="form-group">
-             <label htmlFor="exampleSelect1">Methods: {getUserInfo.methods}</label>
-           </div>
-           <div className="form-group">
-             <label htmlFor="exampleSelect1">Models: {getUserInfo.models}</label>
+    return (
+       <div className="container">
+         <div className="jumbotron">
+           <h2>Pending Request</h2>
+           <p>The Application below has been submitted for approval</p>
            </div>
            <div className="row">
-            <button type="submit" className="btn btn-primary col-sm-3">Accept</button>
-            <button type="submit" className="btn btn-primary col-sm-3">Deny</button>
+             <div className="col-md-1" style={{fontWeight: "700"}}>Name:</div>
+             <div className="col-md-11">{getUserInfo.name}</div>
+           </div>
+           <div className="row">
+             <div className="col-md-1" style={{fontWeight: "700"}}>Email:</div>
+             <div className="col-md-11">{getUserInfo.email}</div>
+           </div>
+           <div className="row">
+             <div className="col-md-1" style={{fontWeight: "700"}}>Description:</div>
+             <div className="col-md-11">{getUserInfo.description}</div>
+           </div>
+           <div className="row">
+             <div className="col-md-1" style={{fontWeight: "700"}}>Tags:</div>
+             <div className="col-md-11">{getUserInfo.tags}</div>
+           </div>
+           <div className="row">
+             <div className="col-md-1" style={{fontWeight: "700"}}>Methods:</div>
+             <div className="col-md-11">{methods}</div>
+           </div>
+           <div className="row">
+             <div className="col-md-1" style={{fontWeight: "700"}}>Models:</div>
+             <div className="col-md-11">{models}</div>
+           </div>
+           <div className="row">
+             <div className="col-md-4">
+               <button type="submit" style={{backgroundColor: "#44CC44"}} className="btn btn-primary col-sm-3">Accept <span className="glyphicon glyphicon glyphicon-ok" aria-hidden="true"></span></button>
+             </div>
+             <div className="col-md-4">
+               <button type="submit" style={{backgroundColor: "tomato"}} className="btn btn-primary col-sm-3">Deny <span className="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+             </div>
            </div>
 
-
        </div>
-     );
-   }
+    );
+  }
 };
 
 

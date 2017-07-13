@@ -9,20 +9,25 @@ class Form extends Component  {
   constructor(props) {
   super(props);
     this.state = {
-      name : "",
-      description: "",
       tags: "1",
+      email: "",
       methods: [],
       method: "",
       models: [],
-      model: ""
+      model: "",
+      approversName: "",
+      approversEmail: ""
     };
   }
   handleFormSubmit({name, description}){
    const methods = this.state.methods;
    const models = this.state.models;
+   const email = this.state.email;
    const tags = this.state.tags;
-   this.props.signupUser({name, description, tags, methods, models});
+   const approversName = this.state.approversName;
+   const approversEmail = this.state.approversEmail;
+   this.props.signupUser({name, email, description, tags, methods, models, approversName, approversEmail});
+
   }
 
   renderAlert(){
@@ -55,6 +60,15 @@ class Form extends Component  {
   handleModelChange(e) {
         this.setState({model: e.target.value});
   }
+  handleEmailChange(e) {
+        this.setState({email: e.target.value});
+  }
+  handleApproversNameChange(e) {
+        this.setState({approversName: e.target.value});
+  }
+  handleApproversEmailChange(e) {
+        this.setState({approversEmail: e.target.value});
+  }
  render(){
     const {handleSubmit, fields: {name, description}} = this.props;
     console.log(this.state);
@@ -65,6 +79,11 @@ class Form extends Component  {
             <label for="exampleInputEmail1">Name</label>
             <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Name" {...name}/>
            {name.touched && name.error && <div className="text-error">{name.error}</div>}
+            <small id="emailHelp" className="form-text text-muted">We'll never share your Name with anyone else.</small>
+          </div>
+          <div className="form-group">
+            <label for="exampleInputEmail1">Email</label>
+            <input type="text" className="form-control" onChange={this.handleEmailChange.bind(this)}id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Email" />
             <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
           </div>
           <div className="form-group">
@@ -142,7 +161,23 @@ class Form extends Component  {
               <Models models={this.state.models} onAddClicked={this.showTable3}></Models>
             </div>
           </div>
-            <button type="submit" className="btn btn-primary">Submit</button>
+          <div className="row">
+            <div className="col-md-1" style={{fontWeight: "700"}}>
+              Approvers Info
+            </div>
+            <div className="col-md-5">
+              <input className="form-control" type="text" placeholder="Approvers Name" onChange={this.handleApproversNameChange.bind(this)}/>
+            </div>
+            <div className="col-md-5">
+              <input className="form-control" type="text" placeholder="Approvers Email" onChange={this.handleApproversEmailChange.bind(this)}/>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-md-3">
+              <button type="submit" className="btn btn-primary">Submit</button>
+            </div>
+          </div>
+
         </form>
       </div>
     );

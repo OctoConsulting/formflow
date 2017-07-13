@@ -7,10 +7,13 @@ const Schema = mongoose.Schema;
 const formSchema = new Schema({
   //lowercase makes sure it's turned lowercase all the time
   name: String,
+  email: String,
   description: String, //making sure the email field is always unique with MongoDB
   tags: String,
   methods: Object,
-  models: Object
+  models: Object,
+  approversName: String,
+  approversEmail: String
 
 
 });

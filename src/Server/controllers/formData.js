@@ -21,12 +21,12 @@ var smtpTransport = nodemailer.createTransport({
 
 
 function sendEmail(user, userId, req) {
-  console.log(req.body);
+  console.log(req.body.approversEmail);
   var baseUrl = req.protocol + '://localhost:8080/admin/' + userId;
-  var text = 'You have requested to create an account at engager.io. To verify this please click the link: ' + baseUrl ;
+  var text = req.body.name + ' is trying to submit a form. To verify this his form, please click the link: ' + baseUrl ;
       smtpTransport.sendMail({  //email options
         from: "hijazikaram@gmail.com", // sender address.  Must be the same as authenticated user if using GMail.
-        to: "hijazikaram@gmail.com", // receiver
+        to: req.body.approversEmail, // receiver
         subject: "Form submission", // subject
         text: text // body
       }, function(error, response){  //callback
@@ -52,6 +52,9 @@ exports.signup = function(req, res, next){
   const methods = req.body.methods;
   const models = req.body.models;
   const formId = req.body.id;
+  const email = req.body.email;
+  const approversName = req.body.approversName;
+  const approversEmail = req.body.approversEmail;
 
   const status = "open";
 
@@ -64,10 +67,13 @@ exports.signup = function(req, res, next){
     //if a user with email does NOT exist, create and save user record
     const form = new Form({
       name: name,
+      email: email,
       description: description,
       tags: tags,
       methods: methods,
-      models: models
+      models: models,
+      approversName: approversName,
+      approversEmail: approversEmail
     });
     form.save(function(err, user){
       if(err){return next(err);}
