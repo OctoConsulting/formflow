@@ -7,6 +7,7 @@ An interactive web app that measures your activities across multiple social medi
 ### Project Setup
 1. Install MongoDB
 2. Install Node
+3. Install Robo 3T
 
 
 ### Running the Project
