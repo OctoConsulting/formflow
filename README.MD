@@ -21,3 +21,4 @@ A step by step series of examples that tell you have to get a development env ru
 3. `npm run dev` (runs off port 4000) to run the server side
 4. Open another terminal in the same directory and do `npm start` (runs off port 8080) to start the project
 5. Go to your browser localhost:8080
+![image](http://file:///Users/khijazi/Desktop/Screen%20Shot%202017-07-24%20at%2010.19.29%20AM.png)
