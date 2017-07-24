@@ -40,6 +40,45 @@ function sendEmail(user, userId, req) {
       });
     }
 
+    function sendEmailToApprovedUser(user, userId, req) {
+      console.log(req.body.approversEmail);
+      var baseUrl = req.protocol + '://localhost:8080/admin/' + userId;
+      var text = req.body.name + ' is trying to submit a form. To verify this his form, please click the link: ' + baseUrl ;
+          smtpTransport.sendMail({  //email options
+            from: "hijazikaram@gmail.com", // sender address.  Must be the same as authenticated user if using GMail.
+            to: req.body.approversEmail, // receiver
+            subject: "Form submission", // subject
+            text: text // body
+          }, function(error, response){  //callback
+            if(error){
+              console.log(error);
+            }else{
+              console.log("Message sent: " + response.message);
+            }
+
+            smtpTransport.close(); // shut down the connection pool, no more messages.  Comment this line out to continue sending emails.
+          });
+        }
+        function sendEmailToDeniedUser(user, userId, req) {
+          console.log(req.body.approversEmail);
+          var baseUrl = req.protocol + '://localhost:8080/admin/' + userId;
+          var text = req.body.name + ' is trying to submit a form. To verify this his form, please click the link: ' + baseUrl ;
+              smtpTransport.sendMail({  //email options
+                from: "hijazikaram@gmail.com", // sender address.  Must be the same as authenticated user if using GMail.
+                to: req.body.approversEmail, // receiver
+                subject: "Form submission", // subject
+                text: text // body
+              }, function(error, response){  //callback
+                if(error){
+                  console.log(error);
+                }else{
+                  console.log("Message sent: " + response.message);
+                }
+
+                smtpTransport.close(); // shut down the connection pool, no more messages.  Comment this line out to continue sending emails.
+              });
+            }
+
 
 
 exports.signup = function(req, res, next){
