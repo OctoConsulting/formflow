@@ -27,7 +27,7 @@ class Form extends Component  {
         return false;
       }
     });
-  });
+   });
   }
   handleFormSubmit({name, description}){
    const methods = this.state.methods;
@@ -54,19 +54,27 @@ class Form extends Component  {
       this.setState({tags: event.target.value});
   }
   addMethod() {
+    if (document.getElementById('method').value === '') {
+     alert('Please enter a Method');
+    } else {
         var currentLanguages = this.state.methods;
         currentLanguages.push(this.state.method);
-
         this.setState({methods: currentLanguages});
+      }
   }
   handleMethodChange(e) {
         this.setState({method: e.target.value});
   }
   addModel() {
-        var currentModels = this.state.models;
-        currentModels.push(this.state.model);
-
-        this.setState({models: currentModels});
+   if (document.getElementById('model').value === '') {
+    alert('Please enter a Model');
+   } else {
+    var currentModels = this.state.models;
+    currentModels.push(this.state.model);
+    this.setState({
+     models: currentModels
+    });
+   }
   }
   methodRemove(method, index) {
     var currentMethod = this.state.methods;
@@ -145,7 +153,7 @@ class Form extends Component  {
                             <div className="form-group fix-margin" style={{
                                 marginBottom: "0px"
                             }}>
-                            <input type="text" className="form-control" onChange={this.handleMethodChange.bind(this)} required/>
+                            <input type="text" className="form-control" id="method" onChange={this.handleMethodChange.bind(this)} required/>
 
                           </div>
                             </th>
@@ -178,7 +186,7 @@ class Form extends Component  {
                             <div className="form-group fix-margin" style={{
                                 marginBottom: "0px"
                             }}>
-                            <input type="text" className="form-control" onChange={this.handleModelChange.bind(this)} required/>
+                            <input type="text" className="form-control" id="model" onChange={this.handleModelChange.bind(this)} required/>
 
                           </div>
                             </th>
