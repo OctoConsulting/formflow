@@ -96,7 +96,7 @@ class Form extends Component  {
     return (
       <div className="container">
         <div className="jumbotron" style={{backgroundColor: "white"}}>
-          <h1>FromFlow</h1>
+          <h1>FormFlow</h1>
           <p>Army DSE is just a registry of enterprise data and services so if you create a web service and want to share it with the enterprise, you can add it to the registry with whatever the endpoints are, schemas, etc.</p>
         </div>
         <div className="ibox-title">
