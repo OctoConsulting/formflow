@@ -23,7 +23,7 @@ A step by step series of examples that tell you have to get a development env ru
 4. Open another terminal in the same directory and do `npm start` (runs off port 8080) to start the project
 ![alt text](https://user-images.githubusercontent.com/9812037/28529163-d91bc4e4-705d-11e7-903d-61d86f737d04.png)
 5. Go to your browser localhost:8080
-![alt text](https://user-images.githubusercontent.com/9812037/28571555-6a25e25e-7111-11e7-9278-8e1399dfcadf.png)
+![alt text](https://user-images.githubusercontent.com/9812037/28573171-bd8d320c-7117-11e7-8618-8b1490ffe91b.png)
 6. When the user submits a form, the approver should get an email.
 ![alt text](https://user-images.githubusercontent.com/9812037/28530740-cb0e23f6-7062-11e7-81e4-dd36f2730e1f.png)
 7. Go to the link localhost:8080/admin/userid
