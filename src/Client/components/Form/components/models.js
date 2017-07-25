@@ -9,8 +9,9 @@ var Methods = React.createClass({
     handleChange(event) {
         this.setState({value: event.target.value});
     },
-
-
+    onModelRemove(){
+       this.props.onModelRemove();
+    },
     onAddClick(event){
       this.props.onAddClicked(event);
     },
@@ -19,7 +20,8 @@ var Methods = React.createClass({
 
             var rows = this.props.models.map((model, index) => (
               <tr>
-                <td>{model}</td>
+                <td className="center">{model}</td>
+                <td className="center"><span onClick={this.onModelRemove} className="glyphicon glyphicon-trash"></span></td>
             </tr>));
 
         } else {
@@ -29,14 +31,15 @@ var Methods = React.createClass({
         }
 
         return (
-          <div className="row" style={{marginLeft: "100px"}}>
-            <div className="col-md-6">
+          <div className="row" >
+            <div className="col-md-10">
 
                 {this.props.models.length > 0
-                    ? <table className="table table-striped table-responsive table-bordered">
+                    ? <table className="table table-striped table-responsive table-bordered" style={{marginLeft: "115px"}}>
                             <thead>
                                 <tr>
-                                    <th>Models</th>
+                                    <th className="center">Models</th>
+                                    <th className="center">DELETE</th>
                                 </tr>
                             </thead>
                             <tbody>

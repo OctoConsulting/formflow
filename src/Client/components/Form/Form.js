@@ -27,7 +27,8 @@ class Form extends Component  {
    const approversName = this.state.approversName;
    const approversEmail = this.state.approversEmail;
    this.props.signupUser({name, email, description, tags, methods, models, approversName, approversEmail});
-
+   alert('We will reply to you as soon as possible');
+   window.location.reload();
   }
 
   renderAlert(){
@@ -57,6 +58,16 @@ class Form extends Component  {
 
         this.setState({models: currentModels});
   }
+  methodRemove(method, index) {
+    var currentMethod = this.state.methods;
+    currentMethod.splice(index, 1);
+    this.setState({methods: currentMethod});
+  }
+  modelRemove(model, index) {
+    var currentModel = this.state.models;
+    currentModel.splice(index, 1);
+    this.setState({models: currentModel});
+  }
   handleModelChange(e) {
         this.setState({model: e.target.value});
   }
@@ -73,112 +84,131 @@ class Form extends Component  {
     const {handleSubmit, fields: {name, description}} = this.props;
     console.log(this.state);
     return (
-      <div>
-        <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
-          <div className="form-group">
-            <label for="exampleInputEmail1">Name</label>
-            <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Name" {...name}/>
-           {name.touched && name.error && <div className="text-error">{name.error}</div>}
-            <small id="emailHelp" className="form-text text-muted">We'll never share your Name with anyone else.</small>
-          </div>
-          <div className="form-group">
-            <label for="exampleInputEmail1">Email</label>
-            <input type="text" className="form-control" onChange={this.handleEmailChange.bind(this)}id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Email" />
-            <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
-          </div>
-          <div className="form-group">
-            <label for="exampleInputPassword1">Description</label>
-            <input type="text" className="form-control" id="exampleInputPassword1" placeholder="Password" {...description}/>
-          {description.touched && description.error && <div className="text-error">{description.error}</div>}
-          </div>
-          <div className="form-group">
-            <label for="exampleSelect1">Tags</label>
-            <select className="form-control" id="exampleSelect1" onChange={this.handleTagsChange.bind(this)}>
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-            </select>
-          </div>
+      <div className="container">
+        <div className="jumbotron" style={{backgroundColor: "white"}}>
+          <h1>FromFlow</h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+        </div>
+        <div className="ibox-title">
+          <h5>Form <small>Please fill out all the boxes down below.</small></h5>
+        </div>
+        <div className="ibox-content">
           <div className="row">
-            <div className="form-group"><label className="col-md-1 control-label">Methods</label>
-              <div className="col-lg-11">
-                  <table className="table table-bordered table-responsive">
-                    <thead>
-                      <tr>
-                          <th style={{
-                              width: "30%"
-                          }}>
-                          <div className="form-group fix-margin" style={{
-                              marginBottom: "0px"
-                          }}>
-                          <input type="text" className="form-control" onChange={this.handleMethodChange.bind(this)}/>
+          <div className="col-md-12">
+            <form  data-toggle="validator" onSubmit={handleSubmit(this.handleFormSubmit.bind(this))} action="">
+            <div className="form-group">
+              <label for="exampleInputEmail1">Name</label>
+              <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Name" required {...name}/>
+              <small id="emailHelp" className="form-text text-muted">We'll never share your Name with anyone else.</small>
+            </div>
+            <div className="hr-line-dashed"></div>
+            <div className="form-group">
+              <label for="exampleInputEmail1">Email</label>
+              <input type="email" className="form-control" onChange={this.handleEmailChange.bind(this)}id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Email" data-error="Bruh, that email address is invalid" required />
+              <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+            <div className="hr-line-dashed"></div>
+            <div className="form-group">
+              <label for="exampleInputPassword1">Description</label>
+              <input type="text" className="form-control" id="exampleInputPassword1" placeholder="Password" required {...description}/>
+            </div>
+            <div className="hr-line-dashed"></div>
+            <div className="form-group">
+              <label for="exampleSelect1">Tags</label>
+              <select required="required" className="form-control" id="exampleSelect1" onChange={this.handleTagsChange.bind(this)} >
+                <option value='1'>1</option>
+                <option value='2'>2</option>
+                <option value='3'>3</option>
+              </select>
+            </div>
+            <div className="hr-line-dashed"></div>
+            <div className="form-group">
+              <div className="row">
+              <label className="col-md-1 control-label">Methods</label>
+                <div className="col-md-11">
+                    <table className="table table-bordered table-responsive">
+                      <thead>
+                        <tr>
+                            <th style={{
+                                width: "30%"
+                            }}>
+                            <div className="form-group fix-margin" style={{
+                                marginBottom: "0px"
+                            }}>
+                            <input type="text" className="form-control" onChange={this.handleMethodChange.bind(this)} required/>
 
-                        </div>
-                          </th>
-                          <th style={{
-                              textAlign: "center",
-                              width: "15%"
-                          }}>
-                              <button type="button" className="btn btn-default" style={{
-                                  width: "95%"
-                              }} onClick={this.addMethod.bind(this)}>Add</button>
-                          </th>
-                      </tr>
-                    </thead>
-                  </table>
+                          </div>
+                            </th>
+                            <th style={{
+                                textAlign: "center",
+                                width: "15%"
+                            }}>
+                                <button type="button" className="btn btn-default" style={{
+                                    width: "95%"
+                                }} onClick={this.addMethod.bind(this)}>Add</button>
+                            </th>
+                        </tr>
+                      </thead>
+                    </table>
+                </div>
+                <Methods methods={this.state.methods} onAddClicked={this.showTable3} onMethodRemove={this.methodRemove.bind(this)}></Methods>
               </div>
-              <Methods methods={this.state.methods} onAddClicked={this.showTable3}></Methods>
             </div>
-          </div>
-          <div className="row">
-            <div className="form-group"><label className="col-md-1 control-label">Models</label>
-              <div className="col-lg-11">
-                  <table className="table table-bordered table-responsive">
-                    <thead>
-                      <tr>
-                          <th style={{
-                              width: "30%"
-                          }}>
-                          <div className="form-group fix-margin" style={{
-                              marginBottom: "0px"
-                          }}>
-                          <input type="text" className="form-control" onChange={this.handleModelChange.bind(this)}/>
+            <div className="hr-line-dashed"></div>
+            <div className="form-group">
+              <div className="row">
+                <label className="col-md-1 control-label">Models</label>
+                <div className="col-md-11">
+                    <table className="table table-bordered table-responsive">
+                      <thead>
+                        <tr>
+                            <th style={{
+                                width: "30%"
+                            }}>
+                            <div className="form-group fix-margin" style={{
+                                marginBottom: "0px"
+                            }}>
+                            <input type="text" className="form-control" onChange={this.handleModelChange.bind(this)} required/>
 
-                        </div>
-                          </th>
-                          <th style={{
-                              textAlign: "center",
-                              width: "15%"
-                          }}>
-                              <button type="button" className="btn btn-default" style={{
-                                  width: "95%"
-                              }} onClick={this.addModel.bind(this)}>Add</button>
-                          </th>
-                      </tr>
-                    </thead>
-                  </table>
+                          </div>
+                            </th>
+                            <th style={{
+                                textAlign: "center",
+                                width: "15%"
+                            }}>
+                                <button type="button" className="btn btn-default" style={{
+                                    width: "95%"
+                                }} onClick={this.addModel.bind(this)}>Add</button>
+                            </th>
+                        </tr>
+                      </thead>
+                    </table>
+                </div>
+                <Models models={this.state.models} onAddClicked={this.showTable3} onModelRemove={this.modelRemove.bind(this)}></Models>
               </div>
-              <Models models={this.state.models} onAddClicked={this.showTable3}></Models>
             </div>
+            <div className="hr-line-dashed"></div>
+            <div className="form-group">
+              <label for="exampleInputEmail1">Approvers Info</label>
+              <div className="row">
+                <div className="col-md-6">
+                  <input className="form-control" type="text" placeholder="Approvers Name" onChange={this.handleApproversNameChange.bind(this)} required/>
+                </div>
+                <div className="col-md-6">
+                  <input className="form-control" type="email" placeholder="Approvers Email" onChange={this.handleApproversEmailChange.bind(this)} required/>
+                </div>
+              </div>
+            </div>
+            <div className="hr-line-dashed"></div>
+            <div className="row">
+              <div className="col-md-3">
+                <button type="submit" className="btn btn-primary">Submit</button>
+              </div>
+            </div>
+          </form>
           </div>
-          <div className="row">
-            <div className="col-md-1" style={{fontWeight: "700"}}>
-              Approvers Info
-            </div>
-            <div className="col-md-5">
-              <input className="form-control" type="text" placeholder="Approvers Name" onChange={this.handleApproversNameChange.bind(this)}/>
-            </div>
-            <div className="col-md-5">
-              <input className="form-control" type="text" placeholder="Approvers Email" onChange={this.handleApproversEmailChange.bind(this)}/>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-md-3">
-              <button type="submit" className="btn btn-primary">Submit</button>
-            </div>
-          </div>
-
-        </form>
+        </div>
+        </div>
       </div>
     );
   }
