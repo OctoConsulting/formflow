@@ -120,7 +120,7 @@ class Form extends Component  {
             <div className="hr-line-dashed"></div>
             <div className="form-group">
               <label htmlFor="exampleInputPassword1">Description</label>
-              <input type="text" className="form-control" id="exampleInputPassword1" placeholder="Description" required {...description}/>
+              <textarea className="form-control" rows="3"i d="exampleInputPassword1" placeholder="Description" required {...description}/>
             </div>
             <div className="hr-line-dashed"></div>
             <div className="form-group">
