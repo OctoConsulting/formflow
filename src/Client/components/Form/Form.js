@@ -19,6 +19,16 @@ class Form extends Component  {
       approversEmail: ""
     };
   }
+  compontDidMount(){
+    $(document).ready(function() {
+    $(window).keydown(function(event){
+      if(event.keyCode == 13) {
+        event.preventDefault();
+        return false;
+      }
+    });
+  });
+  }
   handleFormSubmit({name, description}){
    const methods = this.state.methods;
    const models = this.state.models;
@@ -95,26 +105,26 @@ class Form extends Component  {
         <div className="ibox-content">
           <div className="row">
           <div className="col-md-12">
-            <form  data-toggle="validator" onSubmit={handleSubmit(this.handleFormSubmit.bind(this))} action="">
+            <form  data-toggle="validator" onSubmit={handleSubmit(this.handleFormSubmit.bind(this))} >
             <div className="form-group">
-              <label for="exampleInputEmail1">Name</label>
+              <label htmlFor="exampleInputEmail1">Name</label>
               <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Name" required {...name}/>
               <small id="emailHelp" className="form-text text-muted">We'll never share your Name with anyone else.</small>
             </div>
             <div className="hr-line-dashed"></div>
             <div className="form-group">
-              <label for="exampleInputEmail1">Email</label>
+              <label htmlFor="exampleInputEmail1">Email</label>
               <input type="email" className="form-control" onChange={this.handleEmailChange.bind(this)}id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Email" data-error="Bruh, that email address is invalid" required />
               <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
             </div>
             <div className="hr-line-dashed"></div>
             <div className="form-group">
-              <label for="exampleInputPassword1">Description</label>
+              <label htmlFor="exampleInputPassword1">Description</label>
               <input type="text" className="form-control" id="exampleInputPassword1" placeholder="Password" required {...description}/>
             </div>
             <div className="hr-line-dashed"></div>
             <div className="form-group">
-              <label for="exampleSelect1">Tags</label>
+              <label htmlFor="exampleSelect1">Tags</label>
               <select required="required" className="form-control" id="exampleSelect1" onChange={this.handleTagsChange.bind(this)} >
                 <option value='1'>1</option>
                 <option value='2'>2</option>
@@ -189,7 +199,7 @@ class Form extends Component  {
             </div>
             <div className="hr-line-dashed"></div>
             <div className="form-group">
-              <label for="exampleInputEmail1">Approvers Info</label>
+              <label htmlFor="exampleInputEmail1">Approvers Info</label>
               <div className="row">
                 <div className="col-md-6">
                   <input className="form-control" type="text" placeholder="Approvers Name" onChange={this.handleApproversNameChange.bind(this)} required/>
