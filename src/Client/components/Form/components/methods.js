@@ -21,7 +21,7 @@ var Methods = React.createClass({
             var rows = this.props.methods.map((method, index) => (
               <tr>
                 <td className="center">{method}</td>
-                <td className="center"><span onClick={this.onMethodRemove} className="glyphicon glyphicon-trash"></span></td>
+                <td className="center red"><span onClick={this.onMethodRemove} className="glyphicon glyphicon-trash cursor"></span></td>
             </tr>));
 
         } else {
