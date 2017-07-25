@@ -211,7 +211,7 @@ class Form extends Component  {
             </div>
             <div className="hr-line-dashed"></div>
             <div className="row">
-              <div className="col-md-3">
+              <div className="col-md-12 center">
                 <button type="submit" className="btn btn-primary">Submit</button>
               </div>
             </div>
